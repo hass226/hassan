@@ -6,5 +6,5 @@ dj-database-url
 python-dotenv
 redis
 celery
-django-cloudinary
+django-cloudinary-storage
 cloudinary
