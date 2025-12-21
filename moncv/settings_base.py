@@ -1,5 +1,32 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Debug: Print Cloudinary config to verify loading
+print("Cloudinary Config:")
+print(f"CLOUDINARY_CLOUD_NAME: {'*' * 8}{os.environ.get('CLOUDINARY_CLOUD_NAME', 'NOT SET')[-3:] if os.environ.get('CLOUDINARY_CLOUD_NAME') else 'NOT SET'}")
+print(f"CLOUDINARY_API_KEY: {'*' * 8}{os.environ.get('CLOUDINARY_API_KEY', 'NOT SET')[-3:] if os.environ.get('CLOUDINARY_API_KEY') else 'NOT SET'}")
+print(f"CLOUDINARY_API_SECRET: {'*' * 8}{os.environ.get('CLOUDINARY_API_SECRET', 'NOT SET')[-3:] if os.environ.get('CLOUDINARY_API_SECRET') else 'NOT SET'}")
+
+# Cloudinary configuration
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config(
+    cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.environ.get('CLOUDINARY_API_KEY'),
+    api_secret=os.environ.get('CLOUDINARY_API_SECRET'),
+    secure=True
+)
+print("Cloudinary configuration loaded" if cloudinary.config().cloud_name else "Cloudinary configuration failed to load")
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +50,20 @@ CORS_ALLOWED_HEADERS = [
     'x-requested-with',
 ]
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+# Cloudinary configuration
+cloudinary.config(
+    cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.environ.get('CLOUDINARY_API_KEY'),
+    api_secret=os.environ.get('CLOUDINARY_API_SECRET'),
+    secure=True
+)
+
 INSTALLED_APPS = [
+    'cloudinary',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
